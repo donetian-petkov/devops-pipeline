@@ -44,3 +44,7 @@ services:
       - supercalc:/var/html/www
     ports:
       - "8080:80"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: bash  
