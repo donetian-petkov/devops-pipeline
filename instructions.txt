@@ -3,20 +3,20 @@ Actions and Commands I used:
 1. vagrant plugin install vagrant-host-shell
 2. vagrant up
 3. vagrant ssh pipelines.do1.exam
-4. sudo useradd jenkins
-5. sudo passwd jenkins
-6. sudo visudo -> jenkins ALL=(ALL)    NOPASSWD: ALL
-7. sudo usermod -s /bin/bash jenkins
-7. su - jenkins
-8. ssh-keygen -t ecdsa -b 521 -m PEM
-9. in new terminal - > vagrant ssh containers.do1.exam - > steps from 4 to 7
-10. in pipelines.do1.exam - > ssh-copy-id jenkins@containers
+4. sudo visudo -> at the bottom of the file paste "jenkins ALL=(ALL)    NOPASSWD: ALL"
+5. sudo usermod -s /bin/bash jenkins
+6. su - (password is vagrant) and then su - jenkins 
+7. ssh-keygen -t ecdsa -b 521 -m PEM
+8. in new terminal - > vagrant ssh containers.do1.exam - >  sudo useradd jenkins &&  sudo passwd jenkins - > steps from 4 to 5
+10. in pipelines.do1.exam - > ssh-copy-id jenkins@containers (the password is the same one which we set via passwd)
 11. Then I installed Jenkins at http://192.168.111.201:8080 providing the password outputed during the setup in 2.
 12. In Manage Jenkins - > Credentials - > System - > Global Credentials - > I created a Global SSH Credential with the generated private key
-13. Installed SSH plugin via Manage Jenkins - > Plugins, selecting for Jenkins to be restarted
-14.  Manage Jenkins ->  System -> SSH Sites -> I added the containers host selecting the global SSH credentials
-15.  Manage Jenkins - > Manage Nodes and Clouds- > New Node - after setting up the label (docker-node) for the node - > selected Only build jobs with label expression matching this node ; Set Launch method to Launch agents via SSH and select the Global SSH Credential 
-16. Go to http://192.168.111.202:3000 and install Gitea
+13. Installed SSH and Generic Webhook Trigger plugins via Manage Jenkins - > Plugins, selecting for Jenkins to be restarted
+14. Manage Jenkins ->  System -> SSH Sites -> I added the containers host selecting the SSH credentials I set up in 12
+15. Manage Jenkins - > Manage Nodes and Clouds- > New Node - after setting up the label (docker-node) for the node - > selected Only build jobs with label expression matching this node ; Set Launch method to Launch agents via SSH and select the Global SSH Credential 
+16. I went to http://192.168.111.202:3000 and installed Gitea
+17. Then I made an empty repo called supercalc
+18. 
 
 16.  Create a new Jenkins Pipeline. In the Configure set:d
 
