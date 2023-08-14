@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s  # How frequently to scrape targets
+
+scrape_configs:
+  - job_name: network-1
+    static_configs:
+      - targets:
+        - network-1-target-1:9100  # Example: replace with actual IP or DNS name
+        - network-1-target-2:9100
+        # Add more targets as needed
+
+  - job_name: network-2
+    static_configs:
+      - targets:
+        - network-2-target-1:9100
+        - network-2-target-2:9100
+        # Add more targets as needed
+
+  - job_name: network-3
+    static_configs:
+      - targets:
+        - network-3-target-1:9100
+        - network-3-target-2:9100
+        # Add more targets as needed
