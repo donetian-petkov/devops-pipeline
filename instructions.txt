@@ -16,13 +16,14 @@ Actions and Commands I used:
 15. Manage Jenkins - > Manage Nodes and Clouds- > New Node - after setting up the label (docker-node) for the node - > selected Only build jobs with label expression matching this node ; Set Launch method to Launch agents via SSH and select the Global SSH Credential 
 16. I went to http://192.168.111.202:3000 and installed Gitea
 17. Then I made an empty repo called supercalc
-18. 
-
-16.  Create a new Jenkins Pipeline. In the Configure set:d
-
+18. I copied the run_gitea.sh to the supercalc container and I executed it effectively pushing the supercalc application to the Gitea repo
+19. I created a new Jenkins Pipeline. In the Configure set:
 
 In GitHub Project set the Gitea  URL
 Build Triggers - > GitHub hook trigger for GITScm polling
 Build Triggers - > Poll SCM 
-In the Pipeline script use Jenkinsfile
+Build Triggers - > Generic Webhook Trigger
 
+In the Pipeline script I used the content of the Jenkinsfile
+
+20. In the Gitea repo - > Settings - > Webhook I set the Webhook from the Pipeline's Generic Webhook Trigger
