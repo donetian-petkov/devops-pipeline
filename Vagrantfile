@@ -35,23 +35,15 @@ Vagrant.configure(2) do |config|
       containers.vm.network "private_network", ip: "192.168.111.202"
       containers.vm.network "forwarded_port", guest: 5000, host: 8081
 
-      containers.vm.provision "file", source: "./run_gitea.sh", destination: "./run_gitea.sh"
-
-      containers.vm.provision :host_shell do |host_shell|
-          host_shell.inline = 'cp ./docker-compose_docker.yml ./docker-compose.yml'
-        end
       containers.vm.provision "file", source: "./docker-compose.yml", destination: "./docker-compose.yml"
 
       containers.vm.provision "shell", path: "add_hosts.sh"
       containers.vm.provision "shell", path: "install_docker.sh"
       containers.vm.provision "shell", path: "run_docker.sh"
 
-      containers.vm.provision :host_shell do |host_shell|
-                       host_shell.inline = 'cp ./docker-compose_gitea.yml ./docker-compose.yml'
-                    end
-      containers.vm.provision "file", source: "./docker-compose.yml", destination: "./docker-compose.yml"
+      
       containers.vm.provision "file", source: "./run_gitea.sh", destination: "./run_gitea.sh"
-
+      
       containers.vm.provision "shell", path: "install_node_exporter.sh"
 
     end

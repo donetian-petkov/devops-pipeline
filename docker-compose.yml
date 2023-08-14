@@ -1,5 +1,12 @@
 version: '3.7'
 
+volumes:
+  supercalc:
+    driver: local
+  mysql:
+    driver: local
+  mysql_data: {}
+
 services:
   mysql:
     image: mysql:8.0
@@ -9,9 +16,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      MYSQL_DATABASE: mysqldb
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: mysqlpass
 
   gitea:
     image: gitea/gitea:1.18.5
@@ -30,6 +37,10 @@ services:
       - "222:22"
     depends_on:
       - mysql
-
-volumes:
-  mysql_data: {}
+  supercalc:
+    image: donetian/supercalc
+    container_name: supercalc
+    volumes:
+      - supercalc:/var/html/www
+    ports:
+      - "8080:80"

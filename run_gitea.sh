@@ -3,8 +3,7 @@
   mkdir source_repo || true
   cd source_repo || exit
 
-  git clone https://github.com/shekeriev/fun-facts
-  git remote add origin http://192.168.99.102:3000/donetian/fun-facts
+  git clone http://192.168.111.202:3000/myadminuser/supercalc 
 
   git commit -m "Initial Commit"
   git push -u origin main
