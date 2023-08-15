@@ -1,0 +1,13 @@
+[jenkins@containers ~]$ docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED
+STATUS              PORTS
+                           NAMES
+5539d5e7de05   donetian/supercalc   "docker-php-entrypoi…"   About a minute
+ago   Up About a minute   0.0.0.0:80->80/tcp, :::80->80/tcp
+                           calcapp
+471833eca91a   gitea/gitea:1.18.5   "/usr/bin/entrypoint…"   4 hours ago
+Up 2 hours          0.0.0.0:3000->3000/tcp, :::3000->3000/tcp,
+0.0.0.0:222->22/tcp, :::222->22/tcp   gitea
+903081340d8a   mysql:8.0            "docker-entrypoint.s…"   4 hours ago
+Up 2 hours          3306/tcp, 33060/tcp
+                           vagrant-mysql-1
