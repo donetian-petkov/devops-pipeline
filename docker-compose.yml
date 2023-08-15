@@ -25,10 +25,10 @@ services:
     container_name: gitea
     environment:
       - GITEA__database__DB_TYPE=mysql
-      - GITEA__database__HOST=db:3306
-      - GITEA__database__NAME=gitea
-      - GITEA__database__USER=gitea
-      - GITEA__database__PASSWD=gitea
+      - GITEA__database__HOST=mysql:3306
+      - GITEA__database__NAME=mysqldb
+      - GITEA__database__USER=mysqluser
+      - GITEA__database__PASSWD=mysqlpass
     restart: always
     volumes:
       - ./gitea:/data
