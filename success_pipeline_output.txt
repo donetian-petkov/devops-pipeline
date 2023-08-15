@@ -1,0 +1,211 @@
+Started by user Donetian
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on docker-node in /home/jenkins/workspace/container
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKERHUB_CREDENTIALS or
+$DOCKERHUB_CREDENTIALS_PSW
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clone)
+[Pipeline] sh
++ pwd
+/home/jenkins/workspace/container
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Avoid second fetch
+Checking out Revision 413d2e183365354bbe2bb73d7532299bd7a3d844
+(refs/remotes/origin/main)
+Commit message: "Initial commit"
+Cloning repository http://192.168.111.202:3000/donetian/supercalc/
+ > git init /home/jenkins/workspace/container # timeout=10
+Fetching upstream changes from http://192.168.111.202:3000/donetian/supercalc/
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.3'
+ > git fetch --tags --force --progress --
+ > http://192.168.111.202:3000/donetian/supercalc/
+ > +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url
+ > http://192.168.111.202:3000/donetian/supercalc/ # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* #
+ > timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 413d2e183365354bbe2bb73d7532299bd7a3d844 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b main 413d2e183365354bbe2bb73d7532299bd7a3d844 # timeout=10
+ > git rev-list --no-walk 413d2e183365354bbe2bb73d7532299bd7a3d844 #
+ > timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ docker build -t supercalc --file /home/jenkins/Dockerfile .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 454B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 transferring context: 2B done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/php:8.0-cli
+#3 ...
+
+#4 [auth] library/php:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/php:8.0-cli
+#3 DONE 1.4s
+
+#5 [1/3] FROM
+docker.io/library/php:8.0-cli@sha256:daa1b15161d20032a23deca2b7058a917a89a6fb8958e1f7e7ad6091cbd0e961
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 1.06kB done
+#6 DONE 0.0s
+
+#7 [2/3] WORKDIR /app
+#7 CACHED
+
+#8 [3/3] COPY index.php /app/
+#8 CACHED
+
+#9 exporting to image
+#9 exporting layers done
+#9 writing image
+sha256:0aecb4a41aa055c31bcb65a1a5e2b1ce4b41bbe38f7f3a8d0d98062505d73069 done
+#9 naming to docker.io/library/supercalc 0.0s done
+#9 DONE 0.0s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run)
+[Pipeline] sh
++ docker container rm -f co-calc
+Error response from daemon: No such container: co-calc
+[Pipeline] sh
++ docker container run -d -p 8080:80 --name co-calc supercalc
+554ef07f6ccc408b01a43543e4b6c42230747f5c999cc0211a906c50a9c61205
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Test #1 - reachability
+[Pipeline] sh
++ grep 200
+++ curl --write-out '%{http_code}' --silent --output /dev/null
+http://192.168.111.202:8080
++ echo 200
+200
+[Pipeline] echo
+Test #2 - 40 + 2 = 42
+[Pipeline] sh
++ grep 42
++ curl --silent --data 'opa=40&opr=add&opb=2' http://192.168.111.202:8080
+40 + 2 = 42  </body>
+[Pipeline] echo
+Test #3 - 150 - 108 = 42
+[Pipeline] sh
++ curl --silent --data 'opa=150&opr=sub&opb=108' http://192.168.111.202:8080
++ grep 42
+150 - 108 = 42  </body>
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (CleanUp)
+[Pipeline] sh
++ docker container rm -f co-calc
+co-calc
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Login)
+[Pipeline] sh
++ docker login -u donetian --password-stdin
++ echo ****
+WARNING! Your password will be stored unencrypted in
+/home/jenkins/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push)
+[Pipeline] sh
++ docker image tag supercalc donetian/supercalc
+[Pipeline] sh
++ docker push donetian/supercalc
+Using default tag: latest
+The push refers to repository [docker.io/donetian/supercalc]
+64c206741faa: Preparing
+154df7e9bbe0: Preparing
+8d3f2747c585: Preparing
+2fb9cf13453c: Preparing
+bc0a644660eb: Preparing
+99f42a9baf6a: Preparing
+3456e543bc96: Preparing
+f73f672578b1: Preparing
+9317fc0c0d3a: Preparing
+87c3afdf4db9: Preparing
+8ce178ff9f34: Preparing
+3456e543bc96: Waiting
+f73f672578b1: Waiting
+9317fc0c0d3a: Waiting
+87c3afdf4db9: Waiting
+8ce178ff9f34: Waiting
+99f42a9baf6a: Waiting
+2fb9cf13453c: Layer already exists
+bc0a644660eb: Layer already exists
+154df7e9bbe0: Layer already exists
+8d3f2747c585: Layer already exists
+64c206741faa: Layer already exists
+3456e543bc96: Layer already exists
+f73f672578b1: Layer already exists
+87c3afdf4db9: Layer already exists
+9317fc0c0d3a: Layer already exists
+99f42a9baf6a: Layer already exists
+8ce178ff9f34: Layer already exists
+latest: digest:
+sha256:e070e237b233fc6272c4894d30c02ac2be1ae174120aac0d35bf8a95d4b1dd39 size:
+2615
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] sh
++ docker container rm -f calcapp
+calcapp
+[Pipeline] sh
++ docker container run -d -p 80:80 --name calcapp donetian/supercalc
+5539d5e7de05454517204836b6d89cc98c58652806bf7a3297cbc126e38640f3
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
