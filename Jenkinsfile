@@ -1,25 +1,26 @@
 pipeline {
   agent {
         label 'docker-node'
-  }   
+  }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('docker-hub')
   }
   stages {
     stage('Clone') {
       steps {
+        sh 'pwd'
         git branch: 'main', url: 'http://192.168.111.202:3000/donetian/supercalc/'
       }
     }
     stage('Build') {
       steps {
-        sh 'docker image build -t img-calc .'
+        sh 'docker build -t supercalc --file /home/jenkins/Dockerfile .'
       }
     }
     stage('Run') {
       steps {
         sh 'docker container rm -f co-calc || true'
-        sh 'docker container run -d -p 8080:80 --name co-calc img-calc'
+        sh 'docker container run -d -p 8080:80 --name co-calc supercalc'
       }
     }
     stage('Test') {
@@ -46,7 +47,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker image tag img-calc donetian/supercalc'
+        sh 'docker image tag supercalc donetian/supercalc'
         sh 'docker push donetian/supercalc'
       }
     }
