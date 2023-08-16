@@ -26,7 +26,7 @@ Actions and Commands I used to create a CI/CD Pipeline with Jenkins, Docker, Gra
 
 19. I created a new Jenkins Pipeline. In the Configure set:
 
-- In GitHub Project set the Gitea  URL
+- In GitHub Project set the Gitea repo  URL (http://192.168.111.202:3000/donetian/supercalc/)
 
 - Build Triggers - > GitHub hook trigger for GITScm polling
 
