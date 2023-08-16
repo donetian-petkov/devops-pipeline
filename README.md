@@ -40,4 +40,4 @@ sudo systemctl restart docker
 sudo systemctl restart jenkins
 
 22. I also copied the Dockerfile to the /home/jenkins.
-23. Finally I ran Build Now on the Pipeline to check if everything works as expected and I received successful output.  
+23. Finally I ran Build Now on the Pipeline to check if everything works as expected and I received successful output, which can be found in the success_pipeline_output.txt
