@@ -10,4 +10,4 @@ echo "* Cding to the prometheus folder"
 cd prometheus-2.42.0.linux-amd64
 
 echo "* Starting Prometheus"
-sudo ./prometheus --config.file prometheus.yml --web.enable-lifecycle 2>> /tmp/prometheus.log &
+sudo ./prometheus --config.file /home/vagrant/prometheus.yml --web.enable-lifecycle 2>> /home/vagrant/prometheus.log &

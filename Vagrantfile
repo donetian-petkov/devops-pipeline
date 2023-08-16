@@ -58,6 +58,9 @@ Vagrant.configure(2) do |config|
         end
         monitoring.vm.network "private_network", ip: "192.168.111.203"
         monitoring.vm.network "forwarded_port", guest: 8080, host: 8082
+
+        monitoring.vm.provision "file", source: "./prometheus.yml", destination: "./prometheus.yml"
+
         monitoring.vm.provision "shell", path: "add_hosts.sh"
               monitoring.vm.provision "shell", path: "install_prometheus.sh"
               monitoring.vm.provision "shell", path: "install_docker.sh"
