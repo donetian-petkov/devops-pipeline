@@ -10,4 +10,4 @@ echo "Navigate to the extracted folder"
 cd node_exporter-1.5.0.linux-amd64/ || exit
 
 echo "Run Node Exporter"
-./node_exporter &> /tmp/node-exporter.log &
+sudo ./node_exporter &> /home/vagrant/node-exporter.log &
