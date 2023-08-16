@@ -18,9 +18,11 @@ Actions and Commands I used to create a CI/CD Pipeline with Jenkins, Docker, Gra
 17. Then I made an empty repo called supercalc
 18. I copied the run_gitea.sh to the supercalc container and I executed it effectively pushing the supercalc application to the Gitea repo
 
-docker cp run_gitea.sh bee277c073e1:run_gitea.sh
+- docker ps
 
-docker exec -it bee277c073e1 bash -c "chmod 755 run_gitea.sh && ./run_gitea.sh"
+- docker cp run_gitea.sh bee277c073e1:run_gitea.sh
+
+- docker exec -it bee277c073e1 bash -c "chmod 755 run_gitea.sh && ./run_gitea.sh"
 
 19. I created a new Jenkins Pipeline. In the Configure set:
 
