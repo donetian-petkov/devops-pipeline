@@ -36,6 +36,7 @@ Vagrant.configure(2) do |config|
       containers.vm.network "forwarded_port", guest: 5000, host: 8081
 
       containers.vm.provision "file", source: "./docker-compose.yml", destination: "./docker-compose.yml"
+      containers.vm.provision "file", source: "./Jenkinsfile", destination: "./Jenkinsfile"
 
       containers.vm.provision "shell", path: "add_hosts.sh"
       containers.vm.provision "shell", path: "install_docker.sh"
