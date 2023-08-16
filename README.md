@@ -24,12 +24,15 @@ docker exec -it bee277c073e1 bash -c "chmod 755 run_gitea.sh && ./run_gitea.sh"
 
 19. I created a new Jenkins Pipeline. In the Configure set:
 
-In GitHub Project set the Gitea  URL
-Build Triggers - > GitHub hook trigger for GITScm polling
-Build Triggers - > Poll SCM   
-Build Triggers - > Generic Webhook Trigger
+- In GitHub Project set the Gitea  URL
 
-In the Pipeline script I used the content of the Jenkinsfile, which features the full pipeline - cloning the PHP script from the Gitea repo on the containers host, building an image from the cloned script, starting a Docker container on the containers host, testing the PHP script with simple calculations and then finally when everything is done pushing a Docker image of the PHP script to Docker hub and then deploying the PHP script on the containers host. 
+- Build Triggers - > GitHub hook trigger for GITScm polling
+
+- Build Triggers - > Poll SCM   
+
+- Build Triggers - > Generic Webhook Trigger
+
+- In the Pipeline script I used the content of the Jenkinsfile, which features the full pipeline - cloning the PHP script from the Gitea repo on the containers host, building an image from the cloned script, starting a Docker container on the containers host, testing the PHP script with simple calculations and then finally when everything is done pushing a Docker image of the PHP script to Docker hub and then deploying the PHP script on the containers host. 
 
 20. In the Gitea repo - > Settings - > Webhook I set the Webhook from the Pipeline's Generic Webhook Trigger
 21. I included the jenkins user on the containers host to the docker group. Then I restarted the Docker service on the containers host and Jenkins on the pipelines host:
