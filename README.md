@@ -39,10 +39,11 @@ Actions and Commands I used to create a CI/CD Pipeline with Jenkins, Docker, Gra
 20. In the Gitea repo - > Settings - > Webhook I set the Webhook from the Pipeline's Generic Webhook Trigger
 21. I included the jenkins user on the containers host to the docker group. Then I restarted the Docker service on the containers host and Jenkins on the pipelines host:
 
-sudo usermod -aG docker jenkins
-sudo systemctl restart docker
-
-sudo systemctl restart jenkins
+- sudo usermod -aG docker jenkins
+  
+- sudo systemctl restart docker
+  
+- sudo systemctl restart jenkins
 
 22. I also copied the Dockerfile to the /home/jenkins.
 23. Finally I ran Build Now on the Pipeline to check if everything works as expected and I received successful output, which can be found in the success_pipeline_output.txt
